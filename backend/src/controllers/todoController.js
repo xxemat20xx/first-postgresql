@@ -41,3 +41,12 @@ export const remove = async (req, res) => {
         res.status(500).json({ error: error.message });
     }
 };
+
+export const getWithUsers = async (req, res) => {
+    try {
+        const todos = await todoModel.getTodosWithUsers();
+        res.json(todos);
+    } catch (error) {
+        res.status(500).json({ error: error.message });
+    }
+};

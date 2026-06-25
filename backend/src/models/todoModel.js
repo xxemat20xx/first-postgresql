@@ -28,3 +28,14 @@ export const deleteTodo = async (id) => {
     const result = await pool.query('DELETE FROM todos WHERE id = $1 RETURNING *', [id]);
     return result.rows[0];
 };
+
+export const getTodosWithUsers = async () => {
+    const query = `
+    SELECT todos.id, todos.title, todos.description, todos.completed, todos.created_at, users.name as user_name
+    FROM todos
+    JOIN users ON todos.user_id = users.id
+    ORDER BY todos.id ASC
+  `;
+    const result = await pool.query(query);
+    return result.rows;
+};
